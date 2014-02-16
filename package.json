@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "coffee-script": "~1.7.1",
-    "sandbox": "~0.8.3",
+    "sandbox": "git://github.com/iameli/sandbox.git#a8f7ce3024b6f6e6cff3936c852f2e17e36f8dfb",
     "lodash": "~2.4.1",
     "async": "~0.2.10"
   }
