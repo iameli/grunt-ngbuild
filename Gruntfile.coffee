@@ -6,6 +6,11 @@ module.exports = (grunt) ->
   grunt.loadTasks 'tasks'
 
   grunt.initConfig
+
+    clean:
+      all:
+        src: ['test/output']
+
     ngbuild:
       testbig:
         expand: true
@@ -23,3 +28,5 @@ module.exports = (grunt) ->
         require: ['should', 'coffee-script/register']
         bail: true
       all: ['test/*.coffee']
+
+  grunt.registerTask 'test', ['clean', 'ngbuild', 'mochaTest']
