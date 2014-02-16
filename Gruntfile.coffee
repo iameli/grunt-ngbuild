@@ -3,6 +3,7 @@
 module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-mocha-test'
+  grunt.loadNpmTasks 'grunt-release'
   grunt.loadTasks 'tasks'
 
   grunt.initConfig
