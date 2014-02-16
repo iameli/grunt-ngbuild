@@ -1,6 +1,8 @@
 grunt-ngbuild
 =============
 
+[![Build Status](https://travis-ci.org/iameli/grunt-ngbuild.png?branch=master)](https://travis-ci.org/iameli/grunt-ngbuild)
+
 ngbuild is a grunt task for building Angular modules based on their dependencies. The files containing the dependencies of the specified Angular module will be concatenated into the output file. See the test directory for an example.
 
 Why ngbuild?
