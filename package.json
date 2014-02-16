@@ -1,6 +1,6 @@
 {
   "name": "grunt-ngbuild",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generates awesome combined angular files.",
   "main": "Gruntfile.coffee",
   "directories": {
