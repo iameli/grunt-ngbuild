@@ -31,7 +31,8 @@ after = ->
 beforeStr = "(#{before.toString()})();"
 afterStr = ";(#{after.toString()})()"
 
-s = new Sandbox()
+s = new Sandbox
+  timeout: 10000
 
 # This guy maintains a list of modules and does a lot of heavy lifting wrt their dependency resolution
 ModuleList = class
