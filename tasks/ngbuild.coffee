@@ -65,7 +65,10 @@ ModuleList = class
     for dep in mod.dependencies
       if not (dep in mods)
         mods.push dep
-        @dependenciesForModule dep, mods
+        try
+          @dependenciesForModule dep, mods
+        catch e
+          throw new Error "#{e.message}\nWhile resolving dependencies for #{mName}"
     return mods
 
 
@@ -100,7 +103,11 @@ module.exports = (grunt) ->
           mList.modCall(fname.src, call[0], call[1]) for call in calls
           cb()
       (err) =>
-        requiredFiles = mList.filesForModule(this.data.module)
+        try
+          requiredFiles = mList.filesForModule(this.data.module)
+        catch e
+          grunt.log.error "Dependency resolution error: #{e.message}"
+          return done(false)
         concatted = (fileData[fileName] for fileName in requiredFiles).sort().join "\n" # Sort is so the output is deterministic across machines.
         grunt.file.write this.data.dest, concatted
         grunt.log.ok 'Wrote module', "#{this.data.module}".cyan, "to", "#{this.data.dest}".cyan
