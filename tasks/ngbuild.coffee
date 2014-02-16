@@ -90,11 +90,11 @@ module.exports = (grunt) ->
         fileData[fname.src] = file
         s.run "#{beforeStr}#{file}#{afterStr};", (output) ->
           try
-            grunt.verbose.writeln "#{output.result}"
             # sandbox returns its strings wrapped in single quotes, oddly. strip them then parse.
             calls = JSON.parse output.result.substr(1, output.result.length - 2)
           catch e
             grunt.verbose.error e
+            grunt.verbose.writeln "#{output.result}"
             grunt.log.error "Error while parsing '#{fname.src}'. Most likely it is making calls other than angular.module."
             return cb(true) # Err
           mList.modCall(fname.src, call[0], call[1]) for call in calls
