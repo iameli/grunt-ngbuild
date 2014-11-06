@@ -3,6 +3,7 @@
 Sandbox = require 'sandbox'
 async   = require 'async'
 _       = require 'lodash'
+path    = require 'path'
 
 # This is inserted before all the JS files so it has to define Angular and such
 before = ->
@@ -77,7 +78,7 @@ ModuleList = class
   filesForModule: (mName) ->
     files = @modules[mName].files
     deps = @dependenciesForModule mName
-    (files = _.union files, @modules[m].files) for m in deps when not @moduleIsIgnored m
+    (files = _.union files, @modules[mName].files) for m in deps when not @moduleIsIgnored m
     return files
 
 
@@ -104,13 +105,13 @@ module.exports = (grunt) ->
           mList.modCall(fname.src, call[0], call[1]) for call in calls
           cb()
       (err) =>
-        try
-          requiredFiles = mList.filesForModule(this.data.module)
-        catch e
-          grunt.log.error "Dependency resolution error: #{e.message}"
-          return done(false)
-        concatted = (fileData[fileName] for fileName in requiredFiles).sort().join "\n" # Sort is so the output is deterministic across machines.
-        grunt.file.write this.data.dest, concatted
-        grunt.log.ok 'Wrote module', "#{this.data.module}".cyan, "to", "#{this.data.dest}".cyan
-        grunt.log.writeln 
+        for app in (grunt.file.read file for file in grunt.file.expand this.data.apps)
+          try
+            requiredFiles = mList.filesForModule(app)
+          catch e
+            grunt.log.error "Dependency resolution error: #{e.message}"
+            return done(false)
+          concatted = (fileData[fileName] for fileName in requiredFiles).sort().join "\n" # Sort is so the output is deterministic across machines.
+          grunt.file.write path.resolve(this.data.dest, "#{app}.js"), concatted
+          grunt.log.ok 'Wrote module', "#{app}".cyan, "to", "#{this.data.dest}".cyan
         done(not err?)
