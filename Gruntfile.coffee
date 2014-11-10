@@ -16,13 +16,13 @@ module.exports = (grunt) ->
       testbig:
         expand: true
         src: ["test/data/**/*.js"]
-        dest: "test/output/big.js"
-        module: "big"
+        dest: "test/output/"
+        apps: ["big"]
       testsmall:
         expand: true
         src: ["test/data/**/*.js"]
-        dest: "test/output/small.js"
-        module: "small"
+        dest: "test/output/"
+        apps: ["small"]
 
     mochaTest:
       options:

@@ -33,7 +33,7 @@ beforeStr = "(#{before.toString()})();"
 afterStr = ";(#{after.toString()})()"
 
 s = new Sandbox
-  timeout: 10000
+  timeout: 100000
 
 # This guy maintains a list of modules and does a lot of heavy lifting wrt their dependency resolution
 ModuleList = class
@@ -105,7 +105,10 @@ module.exports = (grunt) ->
           mList.modCall(fname.src, call[0], call[1]) for call in calls
           cb()
       (err) =>
-        for app in (grunt.file.read file for file in grunt.file.expand this.data.apps)
+        apps = this.data.apps
+        if typeof apps is 'function'
+          apps = apps()
+        for app in apps
           try
             requiredFiles = mList.filesForModule(app)
           catch e
