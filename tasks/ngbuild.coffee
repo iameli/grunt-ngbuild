@@ -115,6 +115,7 @@ module.exports = (grunt) ->
             grunt.log.error "Dependency resolution error: #{e.message}"
             return done(false)
           concatted = (fileData[fileName] for fileName in requiredFiles).sort().join "\n" # Sort is so the output is deterministic across machines.
-          grunt.file.write path.resolve(this.data.dest, "#{app}.js"), concatted
-          grunt.log.ok 'Wrote module', "#{app}".cyan, "to", path.resolve(this.data.dest, app, "#{app}.js").cyan
+          dir = path.resolve(this.data.dest, app, "#{app}.js")
+          grunt.file.write dir, concatted
+          grunt.log.ok 'Wrote module', "#{app}".cyan, "to", dir.cyan
         done(not err?)
