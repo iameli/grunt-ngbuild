@@ -116,5 +116,5 @@ module.exports = (grunt) ->
             return done(false)
           concatted = (fileData[fileName] for fileName in requiredFiles).sort().join "\n" # Sort is so the output is deterministic across machines.
           grunt.file.write path.resolve(this.data.dest, "#{app}.js"), concatted
-          grunt.log.ok 'Wrote module', "#{app}".cyan, "to", path.resolve(this.data.dest, "#{app}.js").cyan
+          grunt.log.ok 'Wrote module', "#{app}".cyan, "to", path.resolve(this.data.dest, app, "#{app}.js").cyan
         done(not err?)
